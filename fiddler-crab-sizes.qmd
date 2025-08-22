@@ -13,12 +13,14 @@ library(tidyverse)
 library(kableExtra)
 ```
 
-
 ```{r}
 #| fig-cap: "this is my caption"
 ggplot(data = pie_crab, aes(y = latitude, x = water_temp)) +
-  geom_point()
+  geom_point() + 
+  labs(x= "Water Temperature (C)",
+       y = "Latitude")
 ```
+
 ```{r}
 crab_stats <- pie_crab %>% group_by(latitude, site) %>% 
   summarise(
@@ -30,8 +32,8 @@ crab_stats <- pie_crab %>% group_by(latitude, site) %>%
   median_mm = median(size)
   ) 
 
-crab_stats |> 
+crab_stats |>
   kable(col.names = c("Latitude", "Site", "Count", "Mean Carapace Length (mm)", "Minimum Carapace Length (mm)", "Max Carapace Length (mm)", "Length Standard Deviation (mm)", "Length Median (mm)"))
   
+  
 ```
-
