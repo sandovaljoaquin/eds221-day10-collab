@@ -2,10 +2,36 @@
 title: "crab practice"
 format: html
 editor: visual
+execute: 
+  echo: false
+  warning: false
 ---
 
 ```{r}
 library(lterdatasampler)
+library(tidyverse)
+library(kableExtra)
+```
 
+
+```{r}
+#| fig-cap: "this is my caption"
+ggplot(data = pie_crab, aes(y = latitude, x = water_temp)) +
+  geom_point()
+```
+```{r}
+crab_stats <- pie_crab %>% group_by(latitude, site) %>% 
+  summarise(
+  n = n(), 
+  mean_mm = mean(size),
+  min_mm = min(size),
+  max_mm = max(size),
+  sd_mm = sd(size),
+  median_mm = median(size)
+  ) 
+
+crab_stats |> 
+  kable(col.names = c("Latitude", "Site", "Count", "Mean Carapace Length (mm)", "Minimum Carapace Length (mm)", "Max Carapace Length (mm)", "Length Standard Deviation (mm)", "Length Median (mm)"))
+  
 ```
 
